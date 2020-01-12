@@ -10,13 +10,22 @@ import UIKit
 import SceneKit
 import ARKit
 
+struct RecipeStruct {
+    var opened = Bool()
+    var url = String()
+    var name = String()
+    var instructions = String()
+    var ingredients = [String]()
+}
+
 class ViewController: UIViewController, ARSCNViewDelegate, UITableViewDelegate, UITableViewDataSource {
     let bubbleDepth : Float = 0.01 // the 'depth' of 3D text
     var latestPrediction : String = "testing123"
     let dispatchQueue = DispatchQueue(label: "testing.recipe-ar-nwhacks2020")
     
-    var isIngredientsMenuOn : Bool = false;
+    var isIngredientsMenuOn : Bool = false
     var listOfIngredients : [String] = []
+    var listOfRecipes : [RecipeStruct] = []
     
     @IBOutlet var sceneView: ARSCNView!
     
@@ -71,6 +80,23 @@ class ViewController: UIViewController, ARSCNViewDelegate, UITableViewDelegate, 
                                 
                                 if recipeListJSONObj.data.recipes.count <= 0 {
                                     return
+                                }
+                                
+                                for element in recipeListJSONObj.data.recipes {
+                                    var newRecipeStruct = RecipeStruct()
+                                    newRecipeStruct.name = element.name
+                                    newRecipeStruct.url = element.source
+                                    newRecipeStruct.instructions = element.instructions
+                                    
+                                    if element.ingredients != nil && element.ingredients.edges.count > 0 {
+                                        for edge in element.ingredients.edges {
+                                            if edge.node != nil {
+                                                newRecipeStruct.ingredients.append(edge.node.name)
+                                            }
+                                        }
+                                    }
+                                    
+                                    self.listOfRecipes.append(newRecipeStruct)
                                 }
                                 
                                 print(recipeListJSONObj.data.recipes[0].name)
@@ -149,13 +175,22 @@ class ViewController: UIViewController, ARSCNViewDelegate, UITableViewDelegate, 
         
         // Tap action
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(gestureRecognize:)))
+        tapGesture.numberOfTapsRequired = 2
         view.addGestureRecognizer(tapGesture)
         
         // Add view for ingredients UI stack
         view.addSubview(ingredientsUIStackView)
         
         // Recipe table
+        recipeTableView.backgroundColor = UIColor(white: 1, alpha: 0.3)
+//        recipeTableView.distribution = .equally
         recipeTableView.isHidden = true
+        let nib = UINib(nibName: "RecipeTableViewCell", bundle: nil)
+        recipeTableView.register(nib, forCellReuseIdentifier: "RecipeTableViewCell")
+        
+        let ingredientsAndInstructionsNib = UINib(nibName: "RecipeIngredientsCell", bundle: nil)
+        recipeTableView.register(ingredientsAndInstructionsNib, forCellReuseIdentifier: "RecipeIngredientsCell")
+        
         recipeTableView.delegate = self
         recipeTableView.dataSource = self
     }
@@ -294,13 +329,43 @@ class ViewController: UIViewController, ARSCNViewDelegate, UITableViewDelegate, 
     // MARK: - Recipe Table View protocols
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-           return 0
-       }
-       
-       func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        return cell
-       }
+        if listOfRecipes.count <= 0 {
+            return 0
+        }
+        print(section)
+        if listOfRecipes[section].opened == true {
+            return 2
+        } else {
+            return 1
+        }
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let dataIndex = indexPath.row - 1
+        
+        if indexPath.row == 0 {
+            let url = URL(string: listOfRecipes[indexPath.section].url)
+            let cell = tableView.dequeueReusableCell(withIdentifier: "RecipeTableViewCell", for: indexPath) as! RecipeTableViewCell
+            cell.recipeName.text = listOfRecipes[indexPath.section].name
+            cell.backgroundColor = .lightGray
+            
+            getData(from: url!) { data, response, error in
+                guard let data = data, error == nil else { return }
+                print(response?.suggestedFilename ?? url!.lastPathComponent)
+                print("Download Finished")
+                DispatchQueue.main.async() {
+                    cell.recipeImage.image = UIImage(data: data)
+                }
+            }
+            
+            return cell
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "RecipeIngredientsCell", for: indexPath) as! RecipeIngredientsCell
+            cell.backgroundColor = .red
+//            cell.ingredientsTextField
+            return cell
+        }
+    }
     
     // MARK: - Utility functions
     
@@ -350,6 +415,9 @@ class ViewController: UIViewController, ARSCNViewDelegate, UITableViewDelegate, 
 //        }
 //        return nil
 //    }
+    func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
+        URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
+    }
     
     func convertListOfIngredientsToGraphQLString(listOfIngredients : [String]) -> String {
         // Ex. list of ingredients to this string : [\"salt\", \"eggs\"]

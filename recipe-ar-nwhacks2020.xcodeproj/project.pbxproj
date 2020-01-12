@@ -16,6 +16,10 @@
 		D00AF29323C9C78A008685BB /* recipe_ar_nwhacks2020Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00AF29223C9C78A008685BB /* recipe_ar_nwhacks2020Tests.swift */; };
 		D00AF29E23C9C78B008685BB /* recipe_ar_nwhacks2020UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00AF29D23C9C78B008685BB /* recipe_ar_nwhacks2020UITests.swift */; };
 		D00AF2AC23CA6B6C008685BB /* IngredientsBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00AF2AB23CA6B6C008685BB /* IngredientsBtn.swift */; };
+		D025D1B523CB9DD2009708C0 /* RecipeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D025D1B323CB9DD2009708C0 /* RecipeTableViewCell.swift */; };
+		D025D1B623CB9DD2009708C0 /* RecipeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D025D1B423CB9DD2009708C0 /* RecipeTableViewCell.xib */; };
+		D025D1B923CBA4E9009708C0 /* RecipeIngredientsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D025D1B723CBA4E9009708C0 /* RecipeIngredientsCell.swift */; };
+		D025D1BA23CBA4E9009708C0 /* RecipeIngredientsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D025D1B823CBA4E9009708C0 /* RecipeIngredientsCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +55,10 @@
 		D00AF29D23C9C78B008685BB /* recipe_ar_nwhacks2020UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = recipe_ar_nwhacks2020UITests.swift; sourceTree = "<group>"; };
 		D00AF29F23C9C78B008685BB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D00AF2AB23CA6B6C008685BB /* IngredientsBtn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientsBtn.swift; sourceTree = "<group>"; };
+		D025D1B323CB9DD2009708C0 /* RecipeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeTableViewCell.swift; sourceTree = "<group>"; };
+		D025D1B423CB9DD2009708C0 /* RecipeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecipeTableViewCell.xib; sourceTree = "<group>"; };
+		D025D1B723CBA4E9009708C0 /* RecipeIngredientsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeIngredientsCell.swift; sourceTree = "<group>"; };
+		D025D1B823CBA4E9009708C0 /* RecipeIngredientsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecipeIngredientsCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +117,10 @@
 				D00AF28623C9C78A008685BB /* LaunchScreen.storyboard */,
 				D00AF28923C9C78A008685BB /* Info.plist */,
 				D00AF2AB23CA6B6C008685BB /* IngredientsBtn.swift */,
+				D025D1B323CB9DD2009708C0 /* RecipeTableViewCell.swift */,
+				D025D1B423CB9DD2009708C0 /* RecipeTableViewCell.xib */,
+				D025D1B723CBA4E9009708C0 /* RecipeIngredientsCell.swift */,
+				D025D1B823CBA4E9009708C0 /* RecipeIngredientsCell.xib */,
 			);
 			path = "recipe-ar-nwhacks2020";
 			sourceTree = "<group>";
@@ -237,7 +249,9 @@
 			files = (
 				D00AF27E23C9C789008685BB /* art.scnassets in Resources */,
 				D00AF28823C9C78A008685BB /* LaunchScreen.storyboard in Resources */,
+				D025D1BA23CBA4E9009708C0 /* RecipeIngredientsCell.xib in Resources */,
 				D00AF28523C9C78A008685BB /* Assets.xcassets in Resources */,
+				D025D1B623CB9DD2009708C0 /* RecipeTableViewCell.xib in Resources */,
 				D00AF28323C9C789008685BB /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -263,9 +277,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D025D1B923CBA4E9009708C0 /* RecipeIngredientsCell.swift in Sources */,
 				D00AF2AC23CA6B6C008685BB /* IngredientsBtn.swift in Sources */,
 				D00AF28023C9C789008685BB /* ViewController.swift in Sources */,
 				D00AF27C23C9C789008685BB /* AppDelegate.swift in Sources */,
+				D025D1B523CB9DD2009708C0 /* RecipeTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
