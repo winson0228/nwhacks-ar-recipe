@@ -19,8 +19,7 @@ struct RecipeStruct {
 }
 
 class ViewController: UIViewController, ARSCNViewDelegate, UITableViewDelegate, UITableViewDataSource {
-    let bubbleDepth : Float = 0.01 // the 'depth' of 3D text
-    var latestPrediction : String = "testing123"
+    let bubbleDepth : Float = 0.03 // the 'depth' of 3D text
     let dispatchQueue = DispatchQueue(label: "testing.recipe-ar-nwhacks2020")
     
     var isIngredientsMenuOn : Bool = false
@@ -46,7 +45,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, UITableViewDelegate, 
                 
                 // TODO: add the list of ingredeitns to the parameters
                 let listOfIngredientsGraphQLString = self.convertListOfIngredientsToGraphQLString(listOfIngredients: self.listOfIngredients)
-                print(listOfIngredientsGraphQLString)
+                print("listOfIngredientsQLString = " + listOfIngredientsGraphQLString)
                 let parameters = ["query": "query { recipes(names: \(listOfIngredientsGraphQLString)) { name source instructions ingredients { edges { node { name } } } } }"] as [String : Any]
                 
                 do {
@@ -64,7 +63,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, UITableViewDelegate, 
                         } else {
                             print("yay")
                             var responseString = String(data: data!, encoding: .utf8)!
-                            print("responseString = \(responseString)")
+//                            print("responseString = \(responseString)")
                             /*
                              responseString = {"data":{"recipes":[{"name":"Khoresht Karafs","source":"/images/khoresht-karafs.png","instructions":"Wash the mint and parsley and make sure they are *completely dry*. A salad spinner helps, if you don\u2019t have one you can use paper towels., Finely chop the mint and parsley, then saut\u00e9 until just starting to turn crispy. Set aside., Saut\u00e9 the onion with enough butter or oil until golden, Add the garlic and saut\u00e9 for 1-2 more minutes, Add the turmeric and saut\u00e9 for 2 more minutes, Add the beef cubes and saut\u00e9 until browned on the outside, Pour in the beef stock and saut\u00e9ed mint and parsley and simmer, In a separate pan, saut\u00e9 the celery until *just* starting to turn brown. Set aside., After the stew has been simmering for 1.5 hour, pour in the saut\u00e9ed celery and simmer for another 30 minutes. This is done so that the celery doesn\u2019t become too mushy., Finish with the lemon juice and serve., ","ingredients":{"edges":[{"node":{"name":"large yellow onion"}},{"node":{"name":"garlic"}},{"node":{"name":"parsley"}},{"node":{"name":"fresh mint"}},{"node":{"name":"stew beef"}},{"node":{"name":"celery"}},{"node":{"name":"ground turmeric"}},{"node":{"name":"beef stock"}},{"node":{"name":"lemon"}},{"node":{"name":"butter or oil"}}]}}]}}
                 
@@ -74,13 +73,15 @@ class ViewController: UIViewController, ARSCNViewDelegate, UITableViewDelegate, 
                             
                             if recipeJSONDict != nil {
                                 var recipeListJSONObj = recipeJSONDict!
-                                print(recipeListJSONObj)
-                                print(recipeListJSONObj.data)
-                                print(recipeListJSONObj.data.recipes)
+//                                print(recipeListJSONObj)
+//                                print(recipeListJSONObj.data)
+//                                print(recipeListJSONObj.data.recipes)
                                 
                                 if recipeListJSONObj.data.recipes.count <= 0 {
                                     return
                                 }
+//                                print(recipeListJSONObj.data.recipes)
+                                print("found recipes")
                                 
                                 for element in recipeListJSONObj.data.recipes {
                                     var newRecipeStruct = RecipeStruct()
@@ -97,13 +98,18 @@ class ViewController: UIViewController, ARSCNViewDelegate, UITableViewDelegate, 
                                     }
                                     
                                     self.listOfRecipes.append(newRecipeStruct)
+                                    
+                                    DispatchQueue.main.async {
+                                        self.recipeTableView.reloadData()
+                                    }
+                                    //self.recipeTableView.reloadData()
                                 }
                                 
-                                print(recipeListJSONObj.data.recipes[0].name)
-                                print(recipeListJSONObj.data.recipes[0].source)
-                                print(recipeListJSONObj.data.recipes[0].ingredients.edges[0])
-                                print(recipeListJSONObj.data.recipes[0].ingredients.edges[0].node)
-                                print(recipeListJSONObj.data.recipes[0].ingredients.edges[0].node.name)
+//                                print(recipeListJSONObj.data.recipes[0].name)
+//                                print(recipeListJSONObj.data.recipes[0].source)
+//                                print(recipeListJSONObj.data.recipes[0].ingredients.edges[0])
+//                                print(recipeListJSONObj.data.recipes[0].ingredients.edges[0].node)
+//                                print(recipeListJSONObj.data.recipes[0].ingredients.edges[0].node.name)
                                 
                                 
                                 /*
@@ -127,6 +133,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, UITableViewDelegate, 
     
     @IBAction func clearBtnClick(_ sender: Any) {
         listOfIngredients.removeAll()
+        listOfRecipes.removeAll()
+        recipeTableView.reloadData()
         sceneView.scene.rootNode.enumerateChildNodes { (node, stop) in node.removeFromParentNode() }
     }
     
@@ -184,6 +192,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, UITableViewDelegate, 
         // Recipe table
         recipeTableView.backgroundColor = UIColor(white: 1, alpha: 0.3)
 //        recipeTableView.distribution = .equally
+        recipeTableView.rowHeight = 136
         recipeTableView.isHidden = true
         let nib = UINib(nibName: "RecipeTableViewCell", bundle: nil)
         recipeTableView.register(nib, forCellReuseIdentifier: "RecipeTableViewCell")
@@ -267,7 +276,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, UITableViewDelegate, 
                                 let worldCoord : SCNVector3 = SCNVector3Make(transform.columns.3.x, transform.columns.3.y, transform.columns.3.z)
 
                                 // Create 3D Text
-                                let node : SCNNode = self.createNewBubbleParentNode("\(caption). Confidence: \(confidenceLevel)")
+                                let node : SCNNode = self.createNewBubbleParentNode("\(caption). \(nameOfIngredient). Confidence: \(confidenceLevel)")
                                 self.sceneView.scene.rootNode.addChildNode(node)
                                 node.position = worldCoord
                                 
@@ -295,11 +304,11 @@ class ViewController: UIViewController, ARSCNViewDelegate, UITableViewDelegate, 
 
         // BUBBLE-TEXT
         let bubble = SCNText(string: text, extrusionDepth: CGFloat(bubbleDepth))
-        var font = UIFont(name: "Futura", size: 0.15)
+        var font = UIFont(name: "Arial", size: 0.12)
         bubble.font = font
 
-        bubble.firstMaterial?.diffuse.contents = UIColor.orange
-        bubble.firstMaterial?.specular.contents = UIColor.white
+        bubble.firstMaterial?.diffuse.contents = UIColor.white
+        bubble.firstMaterial?.specular.contents = UIColor.black
         bubble.firstMaterial?.isDoubleSided = true
         // bubble.flatness // setting this too low can cause crashes.
         bubble.chamferRadius = CGFloat(bubbleDepth)
@@ -341,12 +350,16 @@ class ViewController: UIViewController, ARSCNViewDelegate, UITableViewDelegate, 
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if listOfRecipes.count <= 0 {
+            return UITableViewCell()
+        }
+        
+        print("tableView")
         let dataIndex = indexPath.row - 1
         
         if indexPath.row == 0 {
             let url = URL(string: listOfRecipes[indexPath.section].url)
             let cell = tableView.dequeueReusableCell(withIdentifier: "RecipeTableViewCell", for: indexPath) as! RecipeTableViewCell
-            cell.recipeName.text = listOfRecipes[indexPath.section].name
             cell.backgroundColor = .lightGray
             
             getData(from: url!) { data, response, error in
@@ -354,6 +367,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, UITableViewDelegate, 
                 print(response?.suggestedFilename ?? url!.lastPathComponent)
                 print("Download Finished")
                 DispatchQueue.main.async() {
+                    cell.recipeName.text = self.listOfRecipes[indexPath.section].name
                     cell.recipeImage.image = UIImage(data: data)
                 }
             }
@@ -361,9 +375,53 @@ class ViewController: UIViewController, ARSCNViewDelegate, UITableViewDelegate, 
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "RecipeIngredientsCell", for: indexPath) as! RecipeIngredientsCell
-            cell.backgroundColor = .red
-//            cell.ingredientsTextField
+//            let cell = tableView.dequeueReusableCell(withIdentifier: "RecipeTableViewCell", for: indexPath) as! RecipeTableViewCell
+            cell.backgroundColor = .white
+            print(listOfRecipes[indexPath.section].ingredients)
+            
+            var ingredientsText : String = "";
+            for (index, ingredient) in listOfRecipes[indexPath.section].ingredients.enumerated() {
+                print(ingredient)
+                ingredientsText.append(ingredient)
+              
+                
+                if (index < listOfRecipes[indexPath.section].ingredients.count - 1) {
+                    ingredientsText.append(",")
+                }
+            }
+            print(ingredientsText)
+            cell.recipeIngredientsText.text = ingredientsText
+            
+            var instructions : String = listOfRecipes[indexPath.section].instructions
+            var listOfSplitInstructions : [String] = instructions.components(separatedBy: ",")
+            
+            var instructionText = ""
+            for (index, instr) in listOfSplitInstructions.enumerated() {
+                print(instr)
+                instructionText.append("\n \(index+1). \(instr)")
+            }
+            
+            cell.RecipeInstructionsText.text = instructionText
+            
             return cell
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if listOfRecipes.count <= 0 {
+            return
+        }
+        
+        if indexPath.row == 0 {
+            if listOfRecipes[indexPath.section].opened == true {
+                listOfRecipes[indexPath.section].opened = false
+                let sections = IndexSet.init(integer: indexPath.section)
+                tableView.reloadSections(sections, with: .none)
+            } else {
+                listOfRecipes[indexPath.section].opened = true
+                let sections = IndexSet.init(integer: indexPath.section)
+                tableView.reloadSections(sections, with: .none)
+            }
         }
     }
     

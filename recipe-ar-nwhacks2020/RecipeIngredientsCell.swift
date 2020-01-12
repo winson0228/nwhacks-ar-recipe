@@ -9,8 +9,8 @@
 import UIKit
 
 class RecipeIngredientsCell: UITableViewCell {
-
-    @IBOutlet weak var ingredientsTextField: UITextField!
+    @IBOutlet weak var recipeIngredientsText: UILabel!
+    @IBOutlet weak var RecipeInstructionsText: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
