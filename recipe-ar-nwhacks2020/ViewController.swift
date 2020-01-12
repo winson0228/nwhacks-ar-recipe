@@ -16,7 +16,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, UITableViewDelegate, 
     let dispatchQueue = DispatchQueue(label: "testing.recipe-ar-nwhacks2020")
     
     var isIngredientsMenuOn : Bool = false;
-    var listOfIngredients : [String] = ["Ingredient 1", "Ingredient 2", "Ingredient 3"]
+    var listOfIngredients : [String] = []
     
     @IBOutlet var sceneView: ARSCNView!
     
@@ -100,7 +100,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, UITableViewDelegate, 
     @objc func handleTap(gestureRecognize: UITapGestureRecognizer) {
             // take a screenshot
         dispatchQueue.async {
-            var base64EncodedImage : String? = self.sceneView.snapshot().pngData()?.base64EncodedString()
+            var base64EncodedImage : String = (self.resize(self.sceneView.snapshot()).pngData()?.base64EncodedString())!
             
         //        let url = URL(string: "https://nwhacksripear.azurewebsites.net/graphql")!
         //        var request = URLRequest(url: url)
@@ -130,24 +130,39 @@ class ViewController: UIViewController, ARSCNViewDelegate, UITableViewDelegate, 
         //                print(httpResponse)
                     
                     // Response has returned
-                    let responseString = String(data: data!, encoding: .utf8)
-                    print("responseString = \(responseString)")
+                    let responseString = String(data: data!, encoding: .utf8)!
+                    //print("responseString = \(responseString)")
                     
-                    //            let screenCentre : CGPoint = CGPoint(x: self.sceneView.bounds.midX, y: self.sceneView.bounds.midY)
-                    //
-                    //            let arHitTestResults : [ARHitTestResult] = self.sceneView.hitTest(screenCentre, types: [.featurePoint]) // Alternatively, we could use '.existingPlaneUsingExtent' for more grounded hit-test-points.
-                    //
-                    //                   if let closestResult = arHitTestResults.first {
-                    //                       // Get Coordinates of HitTest
-                    //                       let transform : matrix_float4x4 = closestResult.worldTransform
-                    //                       let worldCoord : SCNVector3 = SCNVector3Make(transform.columns.3.x, transform.columns.3.y, transform.columns.3.z)
-                    //
-                    //                       // Create 3D Text
-                    //                    let node : SCNNode = self.createNewBubbleParentNode(self.latestPrediction)
-                    //                    self.sceneView.scene.rootNode.addChildNode(node)
-                    //                       node.position = worldCoord
-                    //                   }
+//                    let responseJSONDict = self.convertToDictionary(text: responseString)
                     
+                    let responseJSONDict = try? JSONDecoder().decode(JSONResponseData.self, from: responseString.data(using: .utf8)!)
+                    
+                    let responseDetails = responseJSONDict?.data.analyzeImage.name
+//                    print(responseDetails)
+                    
+                    if responseDetails != nil {
+                        print(responseDetails!)
+                        print(self.convertToDictionary(text: responseDetails!))
+                        
+                        //                    let responseDetails = self.convertToDictionary(text: (responseJSONDict?.data.analyzeImage.name)!)!
+                        //                    print(responseDetails)
+                        DispatchQueue.main.async {
+                            let screenCentre : CGPoint = CGPoint(x: self.sceneView.bounds.midX, y: self.sceneView.bounds.midY)
+                            
+                            let arHitTestResults : [ARHitTestResult] = self.sceneView.hitTest(screenCentre, types: [.featurePoint]) // Alternatively, we could use '.existingPlaneUsingExtent' for more grounded hit-test-points.
+        
+                           if let closestResult = arHitTestResults.first {
+                               // Get Coordinates of HitTest
+                               let transform : matrix_float4x4 = closestResult.worldTransform
+                               let worldCoord : SCNVector3 = SCNVector3Make(transform.columns.3.x, transform.columns.3.y, transform.columns.3.z)
+        
+                               // Create 3D Text
+                            let node : SCNNode = self.createNewBubbleParentNode("test")
+                            self.sceneView.scene.rootNode.addChildNode(node)
+                               node.position = worldCoord
+                           }
+                        }
+                    }
                  }
                 })
 
@@ -156,43 +171,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, UITableViewDelegate, 
                 print("ERRORRRRRRRRRRR")
             }
         }
-       
-//
-//        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-//            guard let data = data,
-//                let response = response as? HTTPURLResponse,
-//                error == nil else {                                              // check for fundamental networking error
-//                print("error", error ?? "Unknown error")
-//                return
-//            }
-//
-//            guard (200 ... 299) ~= response.statusCode else {                    // check for http errors
-//                print("statusCode should be 2xx, but is \(response.statusCode)")
-//                print("response = \(response)")
-//                return
-//            }
-//
-//            // Response has returned
-//            let responseString = String(data: data, encoding: .utf8)
-//            print("responseString = \(responseString)")
-//
-//            let screenCentre : CGPoint = CGPoint(x: self.sceneView.bounds.midX, y: self.sceneView.bounds.midY)
-//
-//            let arHitTestResults : [ARHitTestResult] = self.sceneView.hitTest(screenCentre, types: [.featurePoint]) // Alternatively, we could use '.existingPlaneUsingExtent' for more grounded hit-test-points.
-//
-//                   if let closestResult = arHitTestResults.first {
-//                       // Get Coordinates of HitTest
-//                       let transform : matrix_float4x4 = closestResult.worldTransform
-//                       let worldCoord : SCNVector3 = SCNVector3Make(transform.columns.3.x, transform.columns.3.y, transform.columns.3.z)
-//
-//                       // Create 3D Text
-//                    let node : SCNNode = self.createNewBubbleParentNode(self.latestPrediction)
-//                    self.sceneView.scene.rootNode.addChildNode(node)
-//                       node.position = worldCoord
-//                   }
-//        }
-//
-//        task.resume()
     }
     
     func createNewBubbleParentNode(_ text : String) -> SCNNode {
@@ -244,7 +222,71 @@ class ViewController: UIViewController, ARSCNViewDelegate, UITableViewDelegate, 
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         return cell
        }
-       
+    
+    // MARK: - Utility functions
+    
+    func resize(_ image: UIImage) -> UIImage {
+        var actualHeight = Float(image.size.height)
+        var actualWidth = Float(image.size.width)
+        let maxHeight: Float = 300.0
+        let maxWidth: Float = 400.0
+        var imgRatio: Float = actualWidth / actualHeight
+        let maxRatio: Float = maxWidth / maxHeight
+        let compressionQuality: Float = 0.5
+        //50 percent compression
+        if actualHeight > maxHeight || actualWidth > maxWidth {
+            if imgRatio < maxRatio {
+                //adjust width according to maxHeight
+                imgRatio = maxHeight / actualHeight
+                actualWidth = imgRatio * actualWidth
+                actualHeight = maxHeight
+            }
+            else if imgRatio > maxRatio {
+                //adjust height according to maxWidth
+                imgRatio = maxWidth / actualWidth
+                actualHeight = imgRatio * actualHeight
+                actualWidth = maxWidth
+            }
+            else {
+                actualHeight = maxHeight
+                actualWidth = maxWidth
+            }
+        }
+        let rect = CGRect(x: 0.0, y: 0.0, width: CGFloat(actualWidth), height: CGFloat(actualHeight))
+        UIGraphicsBeginImageContext(rect.size)
+        image.draw(in: rect)
+        let img = UIGraphicsGetImageFromCurrentImageContext()
+        let imageData = img?.jpegData(compressionQuality: CGFloat(compressionQuality))
+        UIGraphicsEndImageContext()
+        return UIImage(data: imageData!) ?? UIImage()
+    }
+    
+    func convertToDictionary(text: String) -> [String: Any]? {
+        if let data = text.data(using: .utf8) {
+            do {
+                return try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+        return nil
+    }
+    
+    // MARK: - Welcome
+    struct JSONResponseData: Codable {
+        let data: DataClass
+    }
+
+    // MARK: - DataClass
+    struct DataClass: Codable {
+        let analyzeImage: AnalyzeImage
+    }
+
+    // MARK: - AnalyzeImage
+    struct AnalyzeImage: Codable {
+        let name: String
+    }
+
 
     // MARK: - ARSCNViewDelegate
     
