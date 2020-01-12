@@ -72,6 +72,9 @@
                         <viewLayoutGuide key="safeArea" id="fQZ-KI-GVf"/>
                     </view>
                     <connections>
+                        <outlet property="ClearBtn" destination="FZ5-w1-fMf" id="fAd-ae-Kug"/>
+                        <outlet property="IngredientsMenuBtn" destination="qqI-uY-ZtW" id="92I-Xf-16X"/>
+                        <outlet property="RecipeListBtn" destination="ed6-kp-18c" id="liD-PC-WGx"/>
                         <outlet property="ingredientsUIStackView" destination="R0R-JB-zYn" id="ZZy-5p-vuo"/>
                         <outlet property="recipeTableView" destination="dfg-k3-G1u" id="h6Z-nv-rhn"/>
                         <outlet property="sceneView" destination="BrB-h1-WRS" id="5nT-qQ-ynl"/>

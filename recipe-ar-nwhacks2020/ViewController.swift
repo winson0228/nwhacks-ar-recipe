@@ -24,6 +24,12 @@ class ViewController: UIViewController, ARSCNViewDelegate, UITableViewDelegate, 
     
     @IBOutlet weak var ingredientsUIStackView: UIStackView!
     
+    @IBOutlet weak var IngredientsMenuBtn: UIButton!
+    
+    @IBOutlet weak var RecipeListBtn: UIButton!
+    
+    @IBOutlet weak var ClearBtn: UIButton!
+    
     @IBAction func recipeTableClickBtn(_ sender: Any) {
         recipeTableView.isHidden = !recipeTableView.isHidden
     }
@@ -65,6 +71,15 @@ class ViewController: UIViewController, ARSCNViewDelegate, UITableViewDelegate, 
         let scene = SCNScene()
         sceneView.scene = scene
         sceneView.autoenablesDefaultLighting = true
+        
+        // style buttons
+        IngredientsMenuBtn.setTitleColor(.white, for: .normal)
+        IngredientsMenuBtn.layer.cornerRadius = 5
+        RecipeListBtn.setTitleColor(.white, for: .normal)
+        RecipeListBtn.layer.cornerRadius = 5
+        ClearBtn.setTitleColor(.white, for: .normal)
+        ClearBtn.layer.cornerRadius = 5
+        
         
         // Tap action
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(gestureRecognize:)))
