@@ -13,7 +13,7 @@ import ARKit
 class ViewController: UIViewController, ARSCNViewDelegate, UITableViewDelegate, UITableViewDataSource {
     let bubbleDepth : Float = 0.01 // the 'depth' of 3D text
     var latestPrediction : String = "testing123"
-    let dispatchQueue = DispatchQueue(label: "testing.recipe-ar-nwhacks2020.")
+    let dispatchQueue = DispatchQueue(label: "testing.recipe-ar-nwhacks2020")
     
     var isIngredientsMenuOn : Bool = false;
     var listOfIngredients : [String] = ["Ingredient 1", "Ingredient 2", "Ingredient 3"]
@@ -98,51 +98,101 @@ class ViewController: UIViewController, ARSCNViewDelegate, UITableViewDelegate, 
     
     // MARK: - Interactions
     @objc func handleTap(gestureRecognize: UITapGestureRecognizer) {
-        // take a screenshot
-        var base64EncodedImage : String? = sceneView.snapshot().pngData()?.base64EncodedString()
-        
-        let url = URL(string: "http://httpbin.org/post")!
-        var request = URLRequest(url: url)
-        
-        // TODO: set the appropriate values
-        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-        request.httpMethod = "POST"
-        
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            guard let data = data,
-                let response = response as? HTTPURLResponse,
-                error == nil else {                                              // check for fundamental networking error
-                print("error", error ?? "Unknown error")
-                return
-            }
+            // take a screenshot
+        dispatchQueue.async {
+            var base64EncodedImage : String? = self.sceneView.snapshot().pngData()?.base64EncodedString()
+            
+        //        let url = URL(string: "https://nwhacksripear.azurewebsites.net/graphql")!
+        //        var request = URLRequest(url: url)
+        //
+        //        // TODO: set the appropriate values
+        //        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        //        request.httpMethod = "POST"
+        //        request.HTTPBODY = "{ 'mutation': '{ analyzeImage(Input:'') { name } }' }"
+        //
+            let headers = ["content-type": "application/json"]
+            let parameters = ["query": "mutation { analyzeImage(input: \"\(base64EncodedImage)\") { name  } }"] as [String : Any]
+            
+            do {
+                let postData = try JSONSerialization.data(withJSONObject: parameters, options: [])
 
-            guard (200 ... 299) ~= response.statusCode else {                    // check for http errors
-                print("statusCode should be 2xx, but is \(response.statusCode)")
-                print("response = \(response)")
-                return
+                let request = NSMutableURLRequest(url: NSURL(string: "https://nwhacksripear.azurewebsites.net/graphql")! as URL, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 10.0)
+                request.httpMethod = "POST"
+                request.allHTTPHeaderFields = headers
+                request.httpBody = postData as Data
+
+                let session = URLSession.shared
+                let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
+                if (error != nil) {
+                    print(error)
+                } else {
+        //                let httpResponse = response as? HTTPURLResponse
+        //                print(httpResponse)
+                    
+                    // Response has returned
+                    let responseString = String(data: data!, encoding: .utf8)
+                    print("responseString = \(responseString)")
+                    
+                    //            let screenCentre : CGPoint = CGPoint(x: self.sceneView.bounds.midX, y: self.sceneView.bounds.midY)
+                    //
+                    //            let arHitTestResults : [ARHitTestResult] = self.sceneView.hitTest(screenCentre, types: [.featurePoint]) // Alternatively, we could use '.existingPlaneUsingExtent' for more grounded hit-test-points.
+                    //
+                    //                   if let closestResult = arHitTestResults.first {
+                    //                       // Get Coordinates of HitTest
+                    //                       let transform : matrix_float4x4 = closestResult.worldTransform
+                    //                       let worldCoord : SCNVector3 = SCNVector3Make(transform.columns.3.x, transform.columns.3.y, transform.columns.3.z)
+                    //
+                    //                       // Create 3D Text
+                    //                    let node : SCNNode = self.createNewBubbleParentNode(self.latestPrediction)
+                    //                    self.sceneView.scene.rootNode.addChildNode(node)
+                    //                       node.position = worldCoord
+                    //                   }
+                    
+                 }
+                })
+
+                dataTask.resume()
+            } catch {
+                print("ERRORRRRRRRRRRR")
             }
-            
-            // Response has returned
-            let responseString = String(data: data, encoding: .utf8)
-            print("responseString = \(responseString)")
-            
-            let screenCentre : CGPoint = CGPoint(x: self.sceneView.bounds.midX, y: self.sceneView.bounds.midY)
-                   
-            let arHitTestResults : [ARHitTestResult] = self.sceneView.hitTest(screenCentre, types: [.featurePoint]) // Alternatively, we could use '.existingPlaneUsingExtent' for more grounded hit-test-points.
-                   
-                   if let closestResult = arHitTestResults.first {
-                       // Get Coordinates of HitTest
-                       let transform : matrix_float4x4 = closestResult.worldTransform
-                       let worldCoord : SCNVector3 = SCNVector3Make(transform.columns.3.x, transform.columns.3.y, transform.columns.3.z)
-                       
-                       // Create 3D Text
-                    let node : SCNNode = self.createNewBubbleParentNode(self.latestPrediction)
-                    self.sceneView.scene.rootNode.addChildNode(node)
-                       node.position = worldCoord
-                   }
         }
-
-        task.resume()
+       
+//
+//        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+//            guard let data = data,
+//                let response = response as? HTTPURLResponse,
+//                error == nil else {                                              // check for fundamental networking error
+//                print("error", error ?? "Unknown error")
+//                return
+//            }
+//
+//            guard (200 ... 299) ~= response.statusCode else {                    // check for http errors
+//                print("statusCode should be 2xx, but is \(response.statusCode)")
+//                print("response = \(response)")
+//                return
+//            }
+//
+//            // Response has returned
+//            let responseString = String(data: data, encoding: .utf8)
+//            print("responseString = \(responseString)")
+//
+//            let screenCentre : CGPoint = CGPoint(x: self.sceneView.bounds.midX, y: self.sceneView.bounds.midY)
+//
+//            let arHitTestResults : [ARHitTestResult] = self.sceneView.hitTest(screenCentre, types: [.featurePoint]) // Alternatively, we could use '.existingPlaneUsingExtent' for more grounded hit-test-points.
+//
+//                   if let closestResult = arHitTestResults.first {
+//                       // Get Coordinates of HitTest
+//                       let transform : matrix_float4x4 = closestResult.worldTransform
+//                       let worldCoord : SCNVector3 = SCNVector3Make(transform.columns.3.x, transform.columns.3.y, transform.columns.3.z)
+//
+//                       // Create 3D Text
+//                    let node : SCNNode = self.createNewBubbleParentNode(self.latestPrediction)
+//                    self.sceneView.scene.rootNode.addChildNode(node)
+//                       node.position = worldCoord
+//                   }
+//        }
+//
+//        task.resume()
     }
     
     func createNewBubbleParentNode(_ text : String) -> SCNNode {
