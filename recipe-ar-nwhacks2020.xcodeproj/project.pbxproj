@@ -1,0 +1,599 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D00AF27C23C9C789008685BB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00AF27B23C9C789008685BB /* AppDelegate.swift */; };
+		D00AF27E23C9C789008685BB /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = D00AF27D23C9C789008685BB /* art.scnassets */; };
+		D00AF28023C9C789008685BB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00AF27F23C9C789008685BB /* ViewController.swift */; };
+		D00AF28323C9C789008685BB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D00AF28123C9C789008685BB /* Main.storyboard */; };
+		D00AF28523C9C78A008685BB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D00AF28423C9C78A008685BB /* Assets.xcassets */; };
+		D00AF28823C9C78A008685BB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D00AF28623C9C78A008685BB /* LaunchScreen.storyboard */; };
+		D00AF29323C9C78A008685BB /* recipe_ar_nwhacks2020Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00AF29223C9C78A008685BB /* recipe_ar_nwhacks2020Tests.swift */; };
+		D00AF29E23C9C78B008685BB /* recipe_ar_nwhacks2020UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00AF29D23C9C78B008685BB /* recipe_ar_nwhacks2020UITests.swift */; };
+		D00AF2AC23CA6B6C008685BB /* IngredientsBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00AF2AB23CA6B6C008685BB /* IngredientsBtn.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D00AF28F23C9C78A008685BB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D00AF27023C9C789008685BB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D00AF27723C9C789008685BB;
+			remoteInfo = "recipe-ar-nwhacks2020";
+		};
+		D00AF29A23C9C78A008685BB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D00AF27023C9C789008685BB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D00AF27723C9C789008685BB;
+			remoteInfo = "recipe-ar-nwhacks2020";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		D00AF27823C9C789008685BB /* recipe-ar-nwhacks2020.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "recipe-ar-nwhacks2020.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D00AF27B23C9C789008685BB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		D00AF27D23C9C789008685BB /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
+		D00AF27F23C9C789008685BB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		D00AF28223C9C789008685BB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		D00AF28423C9C78A008685BB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D00AF28723C9C78A008685BB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		D00AF28923C9C78A008685BB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D00AF28E23C9C78A008685BB /* recipe-ar-nwhacks2020Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "recipe-ar-nwhacks2020Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D00AF29223C9C78A008685BB /* recipe_ar_nwhacks2020Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = recipe_ar_nwhacks2020Tests.swift; sourceTree = "<group>"; };
+		D00AF29423C9C78A008685BB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D00AF29923C9C78A008685BB /* recipe-ar-nwhacks2020UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "recipe-ar-nwhacks2020UITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D00AF29D23C9C78B008685BB /* recipe_ar_nwhacks2020UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = recipe_ar_nwhacks2020UITests.swift; sourceTree = "<group>"; };
+		D00AF29F23C9C78B008685BB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D00AF2AB23CA6B6C008685BB /* IngredientsBtn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientsBtn.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D00AF27523C9C789008685BB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D00AF28B23C9C78A008685BB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D00AF29623C9C78A008685BB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D00AF26F23C9C789008685BB = {
+			isa = PBXGroup;
+			children = (
+				D00AF27A23C9C789008685BB /* recipe-ar-nwhacks2020 */,
+				D00AF29123C9C78A008685BB /* recipe-ar-nwhacks2020Tests */,
+				D00AF29C23C9C78A008685BB /* recipe-ar-nwhacks2020UITests */,
+				D00AF27923C9C789008685BB /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D00AF27923C9C789008685BB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D00AF27823C9C789008685BB /* recipe-ar-nwhacks2020.app */,
+				D00AF28E23C9C78A008685BB /* recipe-ar-nwhacks2020Tests.xctest */,
+				D00AF29923C9C78A008685BB /* recipe-ar-nwhacks2020UITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D00AF27A23C9C789008685BB /* recipe-ar-nwhacks2020 */ = {
+			isa = PBXGroup;
+			children = (
+				D00AF27B23C9C789008685BB /* AppDelegate.swift */,
+				D00AF27D23C9C789008685BB /* art.scnassets */,
+				D00AF27F23C9C789008685BB /* ViewController.swift */,
+				D00AF28123C9C789008685BB /* Main.storyboard */,
+				D00AF28423C9C78A008685BB /* Assets.xcassets */,
+				D00AF28623C9C78A008685BB /* LaunchScreen.storyboard */,
+				D00AF28923C9C78A008685BB /* Info.plist */,
+				D00AF2AB23CA6B6C008685BB /* IngredientsBtn.swift */,
+			);
+			path = "recipe-ar-nwhacks2020";
+			sourceTree = "<group>";
+		};
+		D00AF29123C9C78A008685BB /* recipe-ar-nwhacks2020Tests */ = {
+			isa = PBXGroup;
+			children = (
+				D00AF29223C9C78A008685BB /* recipe_ar_nwhacks2020Tests.swift */,
+				D00AF29423C9C78A008685BB /* Info.plist */,
+			);
+			path = "recipe-ar-nwhacks2020Tests";
+			sourceTree = "<group>";
+		};
+		D00AF29C23C9C78A008685BB /* recipe-ar-nwhacks2020UITests */ = {
+			isa = PBXGroup;
+			children = (
+				D00AF29D23C9C78B008685BB /* recipe_ar_nwhacks2020UITests.swift */,
+				D00AF29F23C9C78B008685BB /* Info.plist */,
+			);
+			path = "recipe-ar-nwhacks2020UITests";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D00AF27723C9C789008685BB /* recipe-ar-nwhacks2020 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D00AF2A223C9C78B008685BB /* Build configuration list for PBXNativeTarget "recipe-ar-nwhacks2020" */;
+			buildPhases = (
+				D00AF27423C9C789008685BB /* Sources */,
+				D00AF27523C9C789008685BB /* Frameworks */,
+				D00AF27623C9C789008685BB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "recipe-ar-nwhacks2020";
+			productName = "recipe-ar-nwhacks2020";
+			productReference = D00AF27823C9C789008685BB /* recipe-ar-nwhacks2020.app */;
+			productType = "com.apple.product-type.application";
+		};
+		D00AF28D23C9C78A008685BB /* recipe-ar-nwhacks2020Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D00AF2A523C9C78B008685BB /* Build configuration list for PBXNativeTarget "recipe-ar-nwhacks2020Tests" */;
+			buildPhases = (
+				D00AF28A23C9C78A008685BB /* Sources */,
+				D00AF28B23C9C78A008685BB /* Frameworks */,
+				D00AF28C23C9C78A008685BB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D00AF29023C9C78A008685BB /* PBXTargetDependency */,
+			);
+			name = "recipe-ar-nwhacks2020Tests";
+			productName = "recipe-ar-nwhacks2020Tests";
+			productReference = D00AF28E23C9C78A008685BB /* recipe-ar-nwhacks2020Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		D00AF29823C9C78A008685BB /* recipe-ar-nwhacks2020UITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D00AF2A823C9C78B008685BB /* Build configuration list for PBXNativeTarget "recipe-ar-nwhacks2020UITests" */;
+			buildPhases = (
+				D00AF29523C9C78A008685BB /* Sources */,
+				D00AF29623C9C78A008685BB /* Frameworks */,
+				D00AF29723C9C78A008685BB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D00AF29B23C9C78A008685BB /* PBXTargetDependency */,
+			);
+			name = "recipe-ar-nwhacks2020UITests";
+			productName = "recipe-ar-nwhacks2020UITests";
+			productReference = D00AF29923C9C78A008685BB /* recipe-ar-nwhacks2020UITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D00AF27023C9C789008685BB /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1130;
+				LastUpgradeCheck = 1130;
+				ORGANIZATIONNAME = "Winson Wong";
+				TargetAttributes = {
+					D00AF27723C9C789008685BB = {
+						CreatedOnToolsVersion = 11.3;
+					};
+					D00AF28D23C9C78A008685BB = {
+						CreatedOnToolsVersion = 11.3;
+						TestTargetID = D00AF27723C9C789008685BB;
+					};
+					D00AF29823C9C78A008685BB = {
+						CreatedOnToolsVersion = 11.3;
+						TestTargetID = D00AF27723C9C789008685BB;
+					};
+				};
+			};
+			buildConfigurationList = D00AF27323C9C789008685BB /* Build configuration list for PBXProject "recipe-ar-nwhacks2020" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D00AF26F23C9C789008685BB;
+			productRefGroup = D00AF27923C9C789008685BB /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D00AF27723C9C789008685BB /* recipe-ar-nwhacks2020 */,
+				D00AF28D23C9C78A008685BB /* recipe-ar-nwhacks2020Tests */,
+				D00AF29823C9C78A008685BB /* recipe-ar-nwhacks2020UITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D00AF27623C9C789008685BB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D00AF27E23C9C789008685BB /* art.scnassets in Resources */,
+				D00AF28823C9C78A008685BB /* LaunchScreen.storyboard in Resources */,
+				D00AF28523C9C78A008685BB /* Assets.xcassets in Resources */,
+				D00AF28323C9C789008685BB /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D00AF28C23C9C78A008685BB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D00AF29723C9C78A008685BB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D00AF27423C9C789008685BB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D00AF2AC23CA6B6C008685BB /* IngredientsBtn.swift in Sources */,
+				D00AF28023C9C789008685BB /* ViewController.swift in Sources */,
+				D00AF27C23C9C789008685BB /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D00AF28A23C9C78A008685BB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D00AF29323C9C78A008685BB /* recipe_ar_nwhacks2020Tests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D00AF29523C9C78A008685BB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D00AF29E23C9C78B008685BB /* recipe_ar_nwhacks2020UITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D00AF29023C9C78A008685BB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D00AF27723C9C789008685BB /* recipe-ar-nwhacks2020 */;
+			targetProxy = D00AF28F23C9C78A008685BB /* PBXContainerItemProxy */;
+		};
+		D00AF29B23C9C78A008685BB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D00AF27723C9C789008685BB /* recipe-ar-nwhacks2020 */;
+			targetProxy = D00AF29A23C9C78A008685BB /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		D00AF28123C9C789008685BB /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D00AF28223C9C789008685BB /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		D00AF28623C9C78A008685BB /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D00AF28723C9C78A008685BB /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		D00AF2A023C9C78B008685BB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		D00AF2A123C9C78B008685BB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D00AF2A323C9C78B008685BB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 8ZM6T6RZPV;
+				INFOPLIST_FILE = "recipe-ar-nwhacks2020/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "winson0228.recipe-ar-nwhacks2020";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D00AF2A423C9C78B008685BB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 8ZM6T6RZPV;
+				INFOPLIST_FILE = "recipe-ar-nwhacks2020/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "winson0228.recipe-ar-nwhacks2020";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		D00AF2A623C9C78B008685BB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 8ZM6T6RZPV;
+				INFOPLIST_FILE = "recipe-ar-nwhacks2020Tests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "winson0228.recipe-ar-nwhacks2020Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/recipe-ar-nwhacks2020.app/recipe-ar-nwhacks2020";
+			};
+			name = Debug;
+		};
+		D00AF2A723C9C78B008685BB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 8ZM6T6RZPV;
+				INFOPLIST_FILE = "recipe-ar-nwhacks2020Tests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "winson0228.recipe-ar-nwhacks2020Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/recipe-ar-nwhacks2020.app/recipe-ar-nwhacks2020";
+			};
+			name = Release;
+		};
+		D00AF2A923C9C78B008685BB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 8ZM6T6RZPV;
+				INFOPLIST_FILE = "recipe-ar-nwhacks2020UITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "winson0228.recipe-ar-nwhacks2020UITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "recipe-ar-nwhacks2020";
+			};
+			name = Debug;
+		};
+		D00AF2AA23C9C78B008685BB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 8ZM6T6RZPV;
+				INFOPLIST_FILE = "recipe-ar-nwhacks2020UITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "winson0228.recipe-ar-nwhacks2020UITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "recipe-ar-nwhacks2020";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D00AF27323C9C789008685BB /* Build configuration list for PBXProject "recipe-ar-nwhacks2020" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D00AF2A023C9C78B008685BB /* Debug */,
+				D00AF2A123C9C78B008685BB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D00AF2A223C9C78B008685BB /* Build configuration list for PBXNativeTarget "recipe-ar-nwhacks2020" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D00AF2A323C9C78B008685BB /* Debug */,
+				D00AF2A423C9C78B008685BB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D00AF2A523C9C78B008685BB /* Build configuration list for PBXNativeTarget "recipe-ar-nwhacks2020Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D00AF2A623C9C78B008685BB /* Debug */,
+				D00AF2A723C9C78B008685BB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D00AF2A823C9C78B008685BB /* Build configuration list for PBXNativeTarget "recipe-ar-nwhacks2020UITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D00AF2A923C9C78B008685BB /* Debug */,
+				D00AF2AA23C9C78B008685BB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D00AF27023C9C789008685BB /* Project object */;
+}
