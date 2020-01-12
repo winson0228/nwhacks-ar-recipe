@@ -31,14 +31,80 @@ class ViewController: UIViewController, ARSCNViewDelegate, UITableViewDelegate, 
     @IBOutlet weak var ClearBtn: UIButton!
     
     @IBAction func recipeTableClickBtn(_ sender: Any) {
+        if recipeTableView.isHidden {
+            dispatchQueue.async {
+                let headers = ["content-type": "application/json"]
+                
+                // TODO: add the list of ingredeitns to the parameters
+                let listOfIngredientsGraphQLString = self.convertListOfIngredientsToGraphQLString(listOfIngredients: self.listOfIngredients)
+                print(listOfIngredientsGraphQLString)
+                let parameters = ["query": "query { recipes(names: \(listOfIngredientsGraphQLString)) { name source instructions ingredients { edges { node { name } } } } }"] as [String : Any]
+                
+                do {
+                    let postData = try JSONSerialization.data(withJSONObject: parameters, options: [])
+
+                    let request = NSMutableURLRequest(url: NSURL(string: "https://nwhacksripear.azurewebsites.net/graphql")! as URL, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 10.0)
+                    request.httpMethod = "POST"
+                    request.allHTTPHeaderFields = headers
+                    request.httpBody = postData as Data
+
+                    let session = URLSession.shared
+                    let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
+                        if (error != nil) {
+                            print(error)
+                        } else {
+                            print("yay")
+                            var responseString = String(data: data!, encoding: .utf8)!
+                            print("responseString = \(responseString)")
+                            /*
+                             responseString = {"data":{"recipes":[{"name":"Khoresht Karafs","source":"/images/khoresht-karafs.png","instructions":"Wash the mint and parsley and make sure they are *completely dry*. A salad spinner helps, if you don\u2019t have one you can use paper towels., Finely chop the mint and parsley, then saut\u00e9 until just starting to turn crispy. Set aside., Saut\u00e9 the onion with enough butter or oil until golden, Add the garlic and saut\u00e9 for 1-2 more minutes, Add the turmeric and saut\u00e9 for 2 more minutes, Add the beef cubes and saut\u00e9 until browned on the outside, Pour in the beef stock and saut\u00e9ed mint and parsley and simmer, In a separate pan, saut\u00e9 the celery until *just* starting to turn brown. Set aside., After the stew has been simmering for 1.5 hour, pour in the saut\u00e9ed celery and simmer for another 30 minutes. This is done so that the celery doesn\u2019t become too mushy., Finish with the lemon juice and serve., ","ingredients":{"edges":[{"node":{"name":"large yellow onion"}},{"node":{"name":"garlic"}},{"node":{"name":"parsley"}},{"node":{"name":"fresh mint"}},{"node":{"name":"stew beef"}},{"node":{"name":"celery"}},{"node":{"name":"ground turmeric"}},{"node":{"name":"beef stock"}},{"node":{"name":"lemon"}},{"node":{"name":"butter or oil"}}]}}]}}
+                
+                             */
+                            
+                            let recipeJSONDict = try? JSONDecoder().decode(JSONRecipeList.self, from: responseString.data(using: .utf8)!)
+                            
+                            if recipeJSONDict != nil {
+                                var recipeListJSONObj = recipeJSONDict!
+                                print(recipeListJSONObj)
+                                print(recipeListJSONObj.data)
+                                print(recipeListJSONObj.data.recipes)
+                                
+                                if recipeListJSONObj.data.recipes.count <= 0 {
+                                    return
+                                }
+                                
+                                print(recipeListJSONObj.data.recipes[0].name)
+                                print(recipeListJSONObj.data.recipes[0].source)
+                                print(recipeListJSONObj.data.recipes[0].ingredients.edges[0])
+                                print(recipeListJSONObj.data.recipes[0].ingredients.edges[0].node)
+                                print(recipeListJSONObj.data.recipes[0].ingredients.edges[0].node.name)
+                                
+                                
+                                /*
+                                 JSONRecipeList(data: recipe_ar_nwhacks2020.ViewController.JSONRecipeData(recipes: [recipe_ar_nwhacks2020.ViewController.Recipe(name: "Khoresht Karafs", source: "/images/khoresht-karafs.png", instructions: "Wash the mint and parsley and make sure they are *completely dry*. A salad spinner helps, if you don’t have one you can use paper towels., Finely chop the mint and parsley, then sauté until just starting to turn crispy. Set aside., Sauté the onion with enough butter or oil until golden, Add the garlic and sauté for 1-2 more minutes, Add the turmeric and sauté for 2 more minutes, Add the beef cubes and sauté until browned on the outside, Pour in the beef stock and sautéed mint and parsley and simmer, In a separate pan, sauté the celery until *just* starting to turn brown. Set aside., After the stew has been simmering for 1.5 hour, pour in the sautéed celery and simmer for another 30 minutes. This is done so that the celery doesn’t become too mushy., Finish with the lemon juice and serve., ", ingredients: recipe_ar_nwhacks2020.ViewController.Ingredients(edges: [recipe_ar_nwhacks2020.ViewController.Edge(node: recipe_ar_nwhacks2020.ViewController.Node(name: "large yellow onion")), recipe_ar_nwhacks2020.ViewController.Edge(node: recipe_ar_nwhacks2020.ViewController.Node(name: "garlic")), recipe_ar_nwhacks2020.ViewController.Edge(node: recipe_ar_nwhacks2020.ViewController.Node(name: "parsley")), recipe_ar_nwhacks2020.ViewController.Edge(node: recipe_ar_nwhacks2020.ViewController.Node(name: "fresh mint")), recipe_ar_nwhacks2020.ViewController.Edge(node: recipe_ar_nwhacks2020.ViewController.Node(name: "stew beef")), recipe_ar_nwhacks2020.ViewController.Edge(node: recipe_ar_nwhacks2020.ViewController.Node(name: "celery")), recipe_ar_nwhacks2020.ViewController.Edge(node: recipe_ar_nwhacks2020.ViewController.Node(name: "ground turmeric")), recipe_ar_nwhacks2020.ViewController.Edge(node: recipe_ar_nwhacks2020.ViewController.Node(name: "beef stock")), recipe_ar_nwhacks2020.ViewController.Edge(node: recipe_ar_nwhacks2020.ViewController.Node(name: "lemon")), recipe_ar_nwhacks2020.ViewController.Edge(node: recipe_ar_nwhacks2020.ViewController.Node(name: "butter or oil"))]))]))
+                                 */
+                            }
+                        }
+                    })
+                    dataTask.resume()
+                } catch {
+                    print("Error fetching recipe list")
+                }
+                    
+            }
+        } else {
+            // recipe table is not hidden
+        }
+        
         recipeTableView.isHidden = !recipeTableView.isHidden
     }
     
     @IBAction func clearBtnClick(_ sender: Any) {
-    sceneView.scene.rootNode.enumerateChildNodes { (node, stop) in node.removeFromParentNode() }
+        listOfIngredients.removeAll()
+        sceneView.scene.rootNode.enumerateChildNodes { (node, stop) in node.removeFromParentNode() }
     }
     
-    @IBAction func ingredientsBtnClick(_ sender: Any) {
+    @IBAction func ingredientsBtnClick(_ sender: Any) {6
         if isIngredientsMenuOn {
             // remove subview ingredients from the stack menu
             ingredientsUIStackView.subviews.forEach({$0.removeFromSuperview()})
@@ -116,15 +182,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, UITableViewDelegate, 
             // take a screenshot
         dispatchQueue.async {
             var base64EncodedImage : String = (self.resize(self.sceneView.snapshot()).pngData()?.base64EncodedString())!
-            
-        //        let url = URL(string: "https://nwhacksripear.azurewebsites.net/graphql")!
-        //        var request = URLRequest(url: url)
-        //
-        //        // TODO: set the appropriate values
-        //        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        //        request.httpMethod = "POST"
-        //        request.HTTPBODY = "{ 'mutation': '{ analyzeImage(Input:'') { name } }' }"
-        //
+
             let headers = ["content-type": "application/json"]
             let parameters = ["query": "mutation { analyzeImage(input: \"\(base64EncodedImage)\") { name  } }"] as [String : Any]
             
@@ -153,29 +211,35 @@ class ViewController: UIViewController, ARSCNViewDelegate, UITableViewDelegate, 
                     let responseJSONDict = try? JSONDecoder().decode(JSONResponseData.self, from: responseString.data(using: .utf8)!)
                     
                     let responseDetails = responseJSONDict?.data.analyzeImage.name
-//                    print(responseDetails)
+                    print(responseDetails)
                     
                     if responseDetails != nil {
                         print(responseDetails!)
-                        print(self.convertToDictionary(text: responseDetails!))
                         
-                        //                    let responseDetails = self.convertToDictionary(text: (responseJSONDict?.data.analyzeImage.name)!)!
-                        //                    print(responseDetails)
+                        let responseStrArr = responseDetails!.components(separatedBy: ",")
+                        let nameOfIngredient = responseStrArr[0].components(separatedBy: "=")[1]
+                        let confidenceLevel = responseStrArr[1].components(separatedBy: "=")[1]
+                        let caption = responseStrArr[2].components(separatedBy: "=")[1]
+                        
                         DispatchQueue.main.async {
                             let screenCentre : CGPoint = CGPoint(x: self.sceneView.bounds.midX, y: self.sceneView.bounds.midY)
-                            
+
                             let arHitTestResults : [ARHitTestResult] = self.sceneView.hitTest(screenCentre, types: [.featurePoint]) // Alternatively, we could use '.existingPlaneUsingExtent' for more grounded hit-test-points.
-        
-                           if let closestResult = arHitTestResults.first {
-                               // Get Coordinates of HitTest
-                               let transform : matrix_float4x4 = closestResult.worldTransform
-                               let worldCoord : SCNVector3 = SCNVector3Make(transform.columns.3.x, transform.columns.3.y, transform.columns.3.z)
-        
-                               // Create 3D Text
-                            let node : SCNNode = self.createNewBubbleParentNode("test")
-                            self.sceneView.scene.rootNode.addChildNode(node)
-                               node.position = worldCoord
-                           }
+
+                            if let closestResult = arHitTestResults.first {
+                                // Get Coordinates of HitTest
+                                let transform : matrix_float4x4 = closestResult.worldTransform
+                                let worldCoord : SCNVector3 = SCNVector3Make(transform.columns.3.x, transform.columns.3.y, transform.columns.3.z)
+
+                                // Create 3D Text
+                                let node : SCNNode = self.createNewBubbleParentNode("\(caption). Confidence: \(confidenceLevel)")
+                                self.sceneView.scene.rootNode.addChildNode(node)
+                                node.position = worldCoord
+                                
+                                if nameOfIngredient.lowercased() != "Not an ingredient".lowercased() {
+                                    self.listOfIngredients.append(nameOfIngredient)
+                                }
+                            }
                         }
                     }
                  }
@@ -276,18 +340,35 @@ class ViewController: UIViewController, ARSCNViewDelegate, UITableViewDelegate, 
         return UIImage(data: imageData!) ?? UIImage()
     }
     
-    func convertToDictionary(text: String) -> [String: Any]? {
-        if let data = text.data(using: .utf8) {
-            do {
-                return try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
-            } catch {
-                print(error.localizedDescription)
+//    func convertToDictionary(text: String) -> [String: Any]? {
+//        if let data = text.data(using: .utf8) {
+//            do {
+//                return try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+//            } catch {
+//                print(error.localizedDescription)
+//            }
+//        }
+//        return nil
+//    }
+    
+    func convertListOfIngredientsToGraphQLString(listOfIngredients : [String]) -> String {
+        // Ex. list of ingredients to this string : [\"salt\", \"eggs\"]
+        var graphQLString = "["
+        
+        for (index, element) in listOfIngredients.enumerated() {
+            graphQLString.append("\"\(element)\"")
+            
+            // if not last element
+            if index < (self.listOfIngredients.count - 1) {
+                graphQLString.append(", ")
             }
         }
-        return nil
+        
+        graphQLString.append("]")
+        return graphQLString
     }
     
-    // MARK: - Welcome
+    // MARK: - JSONResponseData
     struct JSONResponseData: Codable {
         let data: DataClass
     }
@@ -301,6 +382,40 @@ class ViewController: UIViewController, ARSCNViewDelegate, UITableViewDelegate, 
     struct AnalyzeImage: Codable {
         let name: String
     }
+    
+    // MARK: - JSONRecipeList
+    struct JSONRecipeList: Codable {
+        let data: JSONRecipeData
+    }
+
+    // MARK: - DataClass
+    struct JSONRecipeData: Codable {
+        let recipes: [Recipe]
+    }
+
+    // MARK: - Recipe
+    struct Recipe: Codable {
+        let name: String
+        let source: String
+        let instructions: String
+        let ingredients: Ingredients
+    }
+
+    // MARK: - Ingredients
+    struct Ingredients: Codable {
+        let edges: [Edge]
+    }
+
+    // MARK: - Edge
+    struct Edge: Codable {
+        let node: Node
+    }
+
+    // MARK: - Node
+    struct Node: Codable {
+        let name: String
+    }
+
 
 
     // MARK: - ARSCNViewDelegate
